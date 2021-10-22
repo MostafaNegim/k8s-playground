@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simple-nginx
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      project: My-Happy-Web
+      role: frontend
+      env: test
+  template:
+    metadata:
+      labels:
+        project: My-Happy-Web
+        role: frontend
+        env: test
+    spec:
+
+      containers:
+      - name: simple-nginx
+        image: nginx
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: "32Mi"
+            cpu: "100m"
+        ports:
+        - containerPort: 80
