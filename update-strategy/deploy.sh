@@ -37,3 +37,6 @@ curl $SERVICE_URL
 
 # Without specifying the revision number, the rollback process will simply jump back to previous version
 kubectl rollout undo deployment simple-nginx
+
+# Recreate
+ k apply -f deployment-recreate-nginx.yaml

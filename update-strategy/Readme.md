@@ -17,3 +17,15 @@ ReplicaSet and represents a stage of running an update command. The first
 revision is the initial state of simple-nginx. Although there is no command tag
 for indication, Kubernetes takes its creation as its first version. However, you
 could still record the command when you create the Deployment.
+
+*Recreate*
+In our understanding, the recreate mode is good for an application under development.
+With recreate, Kubernetes just scales the current ReplicaSet down to zero Pods, and
+creates a new ReplicaSet with the full desired number of Pods. Therefore, recreate has a
+shorter total updating time than rolling-update because it scales ReplicaSets up or down
+simply, once for all. Since a developing Deployment doesn't need to take care of any user
+experience, it is acceptable to have downtime while updating and enjoy faster updates
+
+minReadySeconds
+maxUnavailable
+maxSurge

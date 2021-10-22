@@ -3,7 +3,9 @@ kind: Deployment
 metadata:
   name: recreate-nginx
 spec:
-  replicas: 5
+  strategy: 
+    type: Recreate
+  replicas: 3
   selector:
     matchLabels:
       app: recreate-nginx
@@ -18,7 +20,7 @@ spec:
         imagePullPolicy: IfNotPresent
         resources:
           limits:
-            memory: "128Mi"
-            cpu: "500m"
+            memory: "20Mi"
+            cpu: "100m"
         ports:
         - containerPort: 80
