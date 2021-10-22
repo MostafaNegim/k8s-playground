@@ -29,3 +29,11 @@ k describe rs simple-nginx-6665dd75f | grep Selector
 
 # Rollback
 kubectl rollout history deployment simple-nginx
+
+kubectl rollout undo deployment simple-nginx --to-revision=1
+kubectl rollout status deployment simple-nginx
+k get rs
+curl $SERVICE_URL
+
+# Without specifying the revision number, the rollback process will simply jump back to previous version
+kubectl rollout undo deployment simple-nginx
