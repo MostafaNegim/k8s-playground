@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: happy-ingress
+  labels:
+    name: happy-ingress
+spec:
+  rules:
+  - host: happy.k8s.io
+    http:
+      paths:
+        - path: /nginx
+          pathType: Prefix
+          backend:
+            service:
+              name: nodeport-svc
+              port:
+                number: 8080
+        - path: /echoserver
+          pathType: Prefix
+          backend:
+            service:
+              name: echoserver-svc
+              port:
+                number: 8080
