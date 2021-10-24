@@ -1,0 +1,14 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: package-check
+spec:
+  # ttlSecondsAfterFinished: 100
+  template:
+    spec:
+      containers:
+      - name: package-check
+        image: ubuntu
+        imagePullPolicy: IfNotPresent
+        command: ["dpkg-query",  "-l"]
+      restartPolicy: Never
