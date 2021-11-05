@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dnsutils
+spec:
+  selector:
+    matchLabels:
+      app: dnsutils
+  template:
+    metadata:
+      labels:
+        app: dnsutils
+    spec:
+      containers:
+      - name: busybox
+        image: busybox:1.28
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/sh","-c","echo The app is running! && sleep 3600"]
+        resources:
+          limits:
+            memory: "100Mi"
+            cpu: "50m"
+
