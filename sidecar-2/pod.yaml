@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webserver
+spec:
+  volumes:
+    - name: shared-logs
+      emptyDir: {}
+  containers:
+  - name: nginx
+    imagePullPolicy: IfNotPresent
+    image: nginx
+    volumeMounts:
+      - mountPath: /var/log/nginx
+        name: shared-logs
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "50m"
+  - name: sidecar-container
+    image: busybox:1.28
+    imagePullPolicy: IfNotPresent
+    command: ["sh","-c","while true; do cat /var/log/nginx-2/access.log /var/log/nginx-2/error.log; sleep 30; done"]
+    volumeMounts:
+      - mountPath: /var/log/nginx-2
+        name: shared-logs
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "50m"
+
